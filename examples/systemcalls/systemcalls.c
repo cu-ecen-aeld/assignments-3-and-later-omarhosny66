@@ -68,7 +68,6 @@ bool do_exec(int count, ...)
         return false;
 
     if (pid == 0) {
-        // printf("I am the child.\n");
         execv_ret = execv(command[0], command);
         perror("In execv(): ");
         if (execv_ret == -1) {
@@ -76,12 +75,10 @@ bool do_exec(int count, ...)
             return false;
         }
     }else {
-        // printf("I am the parent, and the child is %d.\n", pid);
         if (waitpid (pid, &status, 0) == -1) {
             return false;
         }
         else if (WIFEXITED (status)) {
-            // printf("The process ended with exit(%d).\n", WEXITSTATUS(status));
             return !(WEXITSTATUS(status));
         }
     }
@@ -133,7 +130,6 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
     }
 
     if (pid == 0) {
-        // printf("I am the child.\n");
         if (dup2(fd, 1) < 0) { 
             perror("dup2"); 
             close(fd);
@@ -150,12 +146,10 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
         }
     }else {
         close(fd);
-        // printf("I am the parent, and the child is %d.\n", pid);
         if (waitpid (pid, &status, 0) == -1) {
             return false;
         }
         else if (WIFEXITED (status)) {
-            // printf("The process ended with exit(%d).\n", WEXITSTATUS(status));
             return !(WEXITSTATUS(status));
         }
     }
