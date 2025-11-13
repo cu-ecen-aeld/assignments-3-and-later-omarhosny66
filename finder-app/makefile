@@ -1,8 +1,19 @@
-# In case of using CROSS_COMPILE 
-CC := $(CROSS_COMPILE)gcc
+CC = $(CROSS_COMPILE)gcc
+CFLAGS = -g -Wall -Wextra -O2
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+TARGET = writer
 
-writer: writer.c
-	$(CC) -Wall -Wextra -O2 writer.c -o writer
+all : $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+
+.PHONY: clean
 
 clean:
-	rm -f writer
+	rm -f $(OBJS) $(TARGET)
