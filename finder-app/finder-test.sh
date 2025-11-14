@@ -64,7 +64,7 @@ do
 	$WRITER "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
-echo $FINDER_SCRIPT "$WRITEDIR" "$WRITESTR" > /tmp/assignment4-result.txt
+echo $FINDER "$WRITEDIR" "$WRITESTR" > /tmp/assignment4-result.txt
 
 OUTPUTSTRING=$($FINDER "$WRITEDIR" "$WRITESTR")
 
