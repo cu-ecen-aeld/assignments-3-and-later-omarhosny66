@@ -13,6 +13,9 @@ WRITEDIR=/tmp/aeld-data
 username=$(cat /etc/finder-app/conf/username.txt)
 OUTPUTFILE=/tmp/assignment4-result.txt
 
+WRITER=$(which writer)
+FINDER=$(which finder.sh)
+
 if [ $# -lt 3 ]
 then
 	echo "Using default value ${WRITESTR} for string to write"
@@ -58,13 +61,14 @@ fi
 
 for i in $( seq 1 $NUMFILES)
 do
-	writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	$WRITER "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
-OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR")
+echo $FINDER_SCRIPT "$WRITEDIR" "$WRITESTR" > /tmp/assignment4-result.txt
 
-echo ${OUTPUTSTRING}  > ${OUTPUTFILE}
-echo ${OUTPUTSTRING}  > /tmp/assignment4-result.txt
+OUTPUTSTRING=$($FINDER "$WRITEDIR" "$WRITESTR")
+
+echo ${OUTPUTSTRING} > ${OUTPUTFILE}
 
 # remove temporary directories
 rm -rf /tmp/aeld-data
