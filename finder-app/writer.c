@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 
 
     if (argc >= 1) {
-        fptr = fopen(argv[1],"r");
+        fptr = fopen(argv[1],"w");
     } else {
         syslog(LOG_ERR, "Error: Insufficient arguments");
     }
